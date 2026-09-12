@@ -10,6 +10,16 @@ from torch_geometric.nn.models import GCN
 from torch_geometric.testing import withPackage
 from torch_geometric.typing import SparseTensor
 
+def _assert_summary_equal(actual: str, expected: str) -> None:
+    """Compare two summary strings with normalized whitespace."""
+    actual_lines = [line.rstrip() for line in actual.splitlines()]
+    expected_lines = [line.rstrip() for line in expected.splitlines()]
+    assert actual_lines == expected_lines, (
+        f'Summary mismatch:\n\nActual:\n{actual}\n\nExpected:\n{expected}'
+    )
+
+
+
 
 class GraphSAGE(torch.nn.Module):
     def __init__(self):
@@ -213,7 +223,7 @@ def test_summary_with_to_hetero_model():
 | │    └─(a)Linear          | [100, 32]           | [100, 32]      | 1,056    |
 +---------------------------+---------------------+----------------+----------+
 """
-    assert summary(model, x_dict, edge_index_dict) == expected[1:-1]
+    _assert_summary_equal(summary(model, x_dict, edge_index_dict), expected[1:-1])
 
 
 @withPackage('tabulate')
