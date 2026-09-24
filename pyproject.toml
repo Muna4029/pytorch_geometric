@@ -201,6 +201,7 @@ filterwarnings = [
     "ignore:.*did not already require gradients, required_grads has been set automatically:UserWarning",
     # Filter `pytorch_lightning` warnings:
     "ignore:GPU available but not used:UserWarning",
+    "ignore:.*oneOf.*:DeprecationWarning",
     "error::DeprecationWarning",
 ]
 markers = [
